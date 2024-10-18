@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { searchForShows } from '../api/tvmaze';
 
 export default function Home() {
-  // eslint-disable-next-line no-unused-vars
   const [searchStr, setSearchStr] = useState('');
+  const [apiData, setApiData] = useState(null);
+  const [apiDataError, setApiDataError] = useState(null);
 
   const onSearchInputChange = ev => {
     setSearchStr(ev.target.value);
@@ -10,22 +12,31 @@ export default function Home() {
 
   const onSearch = async ev => {
     ev.preventDefault();
-
-    const response = await fetch(
-      `https://api.tvmaze.com/search/shows?q=${searchStr}`
+    try {
+      setApiDataError(null);
+      const data = await searchForShows(searchStr);
+      setApiData(data);
+      console.log(apiData);
+    } catch (error) {
+      setApiDataError(error);
+      console.log(apiDataError);
+    }
+  };
+  const renderApiData = () => {
+    if (apiDataError) return <div>{apiDataError.message}</div>;
+    return (
+      apiData &&
+      apiData.map(data => <div key={data.show.id}>{data.show.name}</div>)
     );
-    const body = await response.json();
-
-    console.log(body);
-
-    // https://api.tvmaze.com/search/shows?q=girls
   };
   return (
     <div>
       <form onSubmit={onSearch}>
-        <input type="text" onChange={onSearchInputChange} />
+        <input type="text" value={searchStr} onChange={onSearchInputChange} />
         <button type="submit">Search</button>
       </form>
+
+      {renderApiData()}
     </div>
   );
 }
