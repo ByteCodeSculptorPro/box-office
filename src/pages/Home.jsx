@@ -22,7 +22,6 @@ export default function Home() {
       }
     } catch (error) {
       setApiDataError(error);
-      console.log(apiDataError);
     }
   };
   const renderApiData = () => {

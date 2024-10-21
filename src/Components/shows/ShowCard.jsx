@@ -4,7 +4,6 @@ export default function ShowCard({ name, image, id, summary }) {
   const summaryStripped = summary
     ? summary.split(' ').slice(0, 10).join(' ').replace(/<.+>/g, '')
     : 'No descriptions';
-  console.log(summaryStripped);
   return (
     <div className="show-card">
       <div>
