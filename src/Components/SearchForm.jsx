@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 export default function SearchForm({ onSearch }) {
   const [searchStr, setSearchStr] = useState('');
   const [searchOption, setSearchOption] = useState('shows');
 
-  useEffect(() => {
-    console.log('Component mounted');
-  }, []);
+  // useEffect(() => {
+  //   console.log('Component mounted');
+  // }, []);
   const onSearchInputChange = ev => {
     setSearchStr(ev.target.value);
   };
