@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 export default function ShowCard({ name, image, id, summary }) {
   const summaryStripped = summary
@@ -12,7 +12,9 @@ export default function ShowCard({ name, image, id, summary }) {
       </div>
       <h1>{name}</h1>
       <p>{summaryStripped}</p>
-      <Link to={`/shows/${id}`}>Read more</Link>
+      <a href={`/shows/${id}`} target="_blank" rel="noreferrer">
+        Read more
+      </a>
       <button type="button">Star me</button>
     </div>
   );
