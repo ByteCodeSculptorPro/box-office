@@ -1,34 +1,37 @@
-import { useEffect, useReducer } from 'react';
+//import { useEffect, useReducer } from 'react';
+import { useStarredShows } from '../../lib/useStarredShows';
 import ShowCard from './ShowCard';
 
-const usePresistedReducer = (reducer, initialState, localStorageKey) => {
-  const [state, dispatch] = useReducer(reducer, initialState, initial => {
-    const persistedValue = localStorage.getItem(localStorageKey);
+// const usePresistedReducer = (reducer, initialState, localStorageKey) => {
+//   const [state, dispatch] = useReducer(reducer, initialState, initial => {
+//     const persistedValue = localStorage.getItem(localStorageKey);
 
-    return persistedValue ? JSON.parse(persistedValue) : initial;
-  });
-  useEffect(() => {
-    localStorage.setItem(localStorageKey, JSON.stringify(state));
-  }, [state, localStorageKey]);
-  return [state, dispatch];
-};
-const starredShowsReducer = (currentStarred, action) => {
-  switch (action.type) {
-    case 'STAR':
-      return [...currentStarred, action.showId];
-    case 'UNSTAR':
-      return currentStarred.filter(showId => showId != action.showId);
-    default:
-      return currentStarred;
-  }
-};
+//     return persistedValue ? JSON.parse(persistedValue) : initial;
+//   });
+//   useEffect(() => {
+//     localStorage.setItem(localStorageKey, JSON.stringify(state));
+//   }, [state, localStorageKey]);
+//   return [state, dispatch];
+// };
+// const starredShowsReducer = (currentStarred, action) => {
+//   switch (action.type) {
+//     case 'STAR':
+//       return [...currentStarred, action.showId];
+//     case 'UNSTAR':
+//       return currentStarred.filter(showId => showId != action.showId);
+//     default:
+//       return currentStarred;
+//   }
+// };
 export default function ShowGrid({ shows }) {
   // const [starredShows, dispatchStarred] = useReducer(starredShowsReducer, []);
-  const [starredShows, dispatch] = usePresistedReducer(
-    starredShowsReducer,
-    [],
-    'starredShows'
-  );
+
+  // const [starredShows, dispatch] = usePresistedReducer(
+  //   starredShowsReducer,
+  //   [],
+  //   'starredShows'
+  // );
+  const [starredShows, dispatch] = useStarredShows();
   const onStarMeClick = showId => {
     const isStarred = starredShows.includes(showId);
     if (isStarred) dispatch({ type: 'UNSTAR', showId });
@@ -47,6 +50,7 @@ export default function ShowGrid({ shows }) {
             data.show.image ? data.show.image.medium : '/not-found-image.png'
           }
           onStarMeClick={onStarMeClick}
+          isStarred={starredShows.includes(data.show.id)}
         />
       ))}
     </div>
