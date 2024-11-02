@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSearchStr } from '../lib/usePersistedSearchStr';
+import CustomRadio from './CustomRadio';
 
 // const usePersistedSearchStr = sessionStorageKey => {
 //   const [state, setSearchStr] = useState(() => {
@@ -41,26 +42,21 @@ export default function SearchForm({ onSearch }) {
   return (
     <form onSubmit={onSubmit}>
       <input type="text" value={searchStr} onChange={onSearchInputChange} />
-      <label>
-        Shows
-        <input
-          type="radio"
-          name="search-option"
-          checked={searchOption === 'shows'}
-          value="shows"
-          onChange={onRadioChange}
-        />
-      </label>
-      <label>
-        Actors
-        <input
-          type="radio"
-          name="search-option"
-          checked={searchOption === 'actors'}
-          value="actors"
-          onChange={onRadioChange}
-        />
-      </label>
+      <CustomRadio
+        label="Shows"
+        name="search-option"
+        checked={searchOption === 'shows'}
+        value="shows"
+        onChange={onRadioChange}
+      />
+      <CustomRadio
+        label="Actors"
+        name="search-option"
+        checked={searchOption === 'actors'}
+        value="actors"
+        onChange={onRadioChange}
+      />
+
       <button type="submit">Search</button>
     </form>
   );
