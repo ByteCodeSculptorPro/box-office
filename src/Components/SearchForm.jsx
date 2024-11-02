@@ -1,6 +1,23 @@
 import { useState } from 'react';
+import { useSearchStr } from '../lib/usePersistedSearchStr';
+
+// const usePersistedSearchStr = sessionStorageKey => {
+//   const [state, setSearchStr] = useState(() => {
+//     const persitedValue = sessionStorage.getItem(sessionStorageKey);
+
+//     return persitedValue ? JSON.parse(persitedValue) : '';
+//   });
+
+//   useEffect(() => {
+//     sessionStorage.setItem(sessionStorageKey, JSON.stringify(state));
+//   }, [state, sessionStorageKey]);
+
+//   return [state, setSearchStr];
+// };
+
 export default function SearchForm({ onSearch }) {
-  const [searchStr, setSearchStr] = useState('');
+  //const [searchStr, setSearchStr] = useState('');
+  const [searchStr, setSearchStr] = useSearchStr();
   const [searchOption, setSearchOption] = useState('shows');
 
   // useEffect(() => {
