@@ -1,7 +1,9 @@
 //import { Link } from 'react-router-dom';
+import { useRef } from 'react';
 import styled from 'styled-components';
 import { StarIcon } from '../common/StarIcon';
 import { SearchCard, SearchImgWrapper } from '../common/SearchCard';
+
 export default function ShowCard({
   name,
   image,
@@ -10,6 +12,18 @@ export default function ShowCard({
   onStarMeClick,
   isStarred,
 }) {
+  const starBtnRef = useRef();
+
+  const handleStarClick = () => {
+    onStarMeClick(id);
+    const starBtnEl = starBtnRef.current;
+    if (!starBtnEl) return;
+    if (isStarred) {
+      starBtnEl.classList.remove('animate');
+    } else {
+      starBtnEl.classList.add('animate');
+    }
+  };
   const summaryStripped = summary
     ? summary.split(' ').slice(0, 10).join(' ').replace(/<.+>/g, '') + '...'
     : 'No descriptions';
@@ -27,7 +41,12 @@ export default function ShowCard({
         <a href={`/shows/${id}`} target="_blank" rel="noreferrer">
           Read more
         </a>
-        <StarBtn type="button" onClick={() => onStarMeClick(id)}>
+        <StarBtn
+          ref={starBtnRef}
+          type="button"
+          onClick={handleStarClick}
+          className={isStarred && 'animate'}
+        >
           <StarIcon active={isStarred} />
           {/* {isStarred ? 'Unstar me' : 'Star me'} */}
         </StarBtn>
