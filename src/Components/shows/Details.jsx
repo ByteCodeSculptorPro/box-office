@@ -1,10 +1,17 @@
+import styled from 'styled-components';
 export default function Details({ status, premiered, network }) {
   return (
-    <div>
+    <DetailsWrapper>
       <p>Status:{status}</p>
       <p>
         Premiered:{premiered} {!!network && `on ${network.name}`}
       </p>
-    </div>
+    </DetailsWrapper>
   );
 }
+
+const DetailsWrapper = styled.div`
+  p {
+    margin: 5px 0;
+  }
+`;

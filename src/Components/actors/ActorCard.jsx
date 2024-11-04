@@ -1,3 +1,5 @@
+import { SearchCard, SearchImgWrapper } from '../common/SearchCard';
+
 export default function ActorCard({
   name,
   image,
@@ -7,11 +9,11 @@ export default function ActorCard({
   deathday,
 }) {
   return (
-    <div>
-      <div>
+    <SearchCard>
+      <SearchImgWrapper>
         {' '}
         <img className="image" src={image} alt={name} />
-      </div>
+      </SearchImgWrapper>
       <h1>
         {name}
         {!!gender && `(${gender})`}
@@ -19,6 +21,6 @@ export default function ActorCard({
       <p>{country ? `Comes from ${country}` : 'No country known'}</p>
       {!!birthday && <p>Born {birthday}</p>}
       <p>{deathday ? `Died ${deathday}` : 'Alive'}</p>
-    </div>
+    </SearchCard>
   );
 }

@@ -18,6 +18,7 @@ const StyledRadio = styled.label`
   user-select: none;
   font-weight: 700;
   line-height: 1.65;
+  /* border: 2px solid; */
   input {
     position: absolute;
     opacity: 0;
