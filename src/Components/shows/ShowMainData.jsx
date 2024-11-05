@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 import { StarIcon } from '../common/StarIcon';
+import NotFoundImage from '../../lib/not-found-image.png';
 export default function ShowMainData({ image, name, rating, summary, genres }) {
   return (
     <MainDataWrapper>
       <div className="img-wrap">
-        <img
-          src={image ? image.original : '/not-found-image.png'}
-          alt="Show image"
-        />
+        <img src={image ? image.original : NotFoundImage} alt="Show image" />
       </div>
 
       <DataSection>
